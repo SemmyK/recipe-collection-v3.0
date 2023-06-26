@@ -1,0 +1,319 @@
+@import url('https://fonts.googleapis.com/css2?family=Raleway:wght@100;200;300;400;500;600;700;800&display=swap');
+
+/* base styles */
+html,
+body,
+#root {
+	height: 100%;
+}
+
+body {
+	font-family: Raleway, sans-serif;
+	margin: 0;
+	font-size: 1em;
+	background: #dfdfdf;
+	color: #333;
+}
+
+.App {
+	min-height: 100%;
+	padding: 0 0 2em 0;
+}
+
+h1,
+h2,
+h3,
+p {
+	margin: 0;
+}
+
+a {
+	text-decoration: none;
+	padding: 0.5em;
+	font-weight: 400;
+}
+
+/* theme selector tooltip*/
+.tooltiptext {
+	visibility: hidden;
+	width: 200px;
+	color: #fff;
+	text-align: center;
+	border-radius: 6px;
+	padding: 5px 0;
+	/* Position the tooltip */
+	position: absolute;
+	top: 15%;
+	right: 15%;
+	z-index: 1;
+}
+
+.theme-buttons:hover .tooltiptext {
+	visibility: visible;
+}
+
+button:hover {
+	background-color: #198754 !important;
+	color: white;
+}
+
+input,
+textarea {
+	color: #333;
+	padding: 8px;
+	font-size: 1em;
+	border-radius: 4px;
+	border: 1px solid #d4d4d4;
+	background-color: #fff;
+	display: block;
+	width: 100%;
+	box-sizing: border-box;
+}
+.page-title {
+	text-align: center;
+	margin: 40px auto;
+	color: #333;
+}
+
+.loading,
+.error {
+	text-align: center;
+	margin: 40px auto;
+}
+
+.navmenu {
+	color: #fff;
+}
+
+.navmenu a {
+	color: #fff;
+}
+
+.navmenu a.active {
+	color: #333;
+	background-color: #fff;
+	font-weight: bold;
+}
+
+.navmenu button {
+	color: #fff;
+	border-color: #fff;
+}
+
+.home {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-around;
+}
+
+.container {
+	margin: 1em auto;
+}
+
+.card {
+	box-sizing: border-box;
+	margin: 1em;
+	padding: 0;
+	border-radius: 30px;
+	border: none;
+	position: relative;
+	display: flex;
+	flex-direction: column;
+	justify-content: stretch;
+}
+
+.card-body {
+	padding: 0;
+}
+
+.card .card-title {
+	color: #fff;
+	margin: 0;
+	padding: 1em;
+	border-radius: 30px 30px 0 0;
+}
+
+.card-subtitle {
+	margin: 0.5em auto;
+	padding: 0.5em;
+}
+.card-text {
+	padding: 1em;
+}
+.blockquote-footer {
+	margin: 0 1em;
+}
+
+.card a {
+	color: #fff;
+}
+
+.home .card {
+	transition: all 0.3s ease;
+}
+
+.home .card:hover {
+	transform: rotate(4deg);
+}
+
+.home .card li::after {
+	content: ' | ';
+}
+
+.home .card li:last-child::after {
+	content: '';
+}
+
+.recipe {
+	width: 80%;
+	margin: 1em auto;
+}
+
+.recipe .card-title {
+	background-color: #fff;
+	font-size: 2em;
+	font-weight: bold;
+	margin-bottom: 1em;
+}
+
+.recipe .card-body {
+	font-size: 1.2em;
+}
+
+.recipe ul li {
+	list-style-image: url('./assets/food.svg') !important;
+	padding-inline-start: 5px;
+}
+
+.btn-div {
+	width: 80%;
+	margin: 1em auto;
+	padding: 0;
+}
+
+.btn-div .row {
+	width: 100%;
+	justify-content: center;
+	align-items: center;
+	margin: 0;
+	padding: 0;
+}
+
+.btn-div button {
+	width: 100%;
+	margin: 0;
+	color: #fff;
+}
+
+.create {
+	width: 80%;
+	margin: 2em auto;
+}
+
+.create .card-title {
+	background-color: #fff;
+	font-size: 2em;
+	font-weight: bold;
+	margin-bottom: 1em;
+}
+
+.create button {
+	color: #fff;
+	font-weight: 500;
+	padding: 0.5em 1em;
+	width: fit-content;
+}
+
+.ingInput {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-between;
+}
+
+.ingInput label {
+	width: 100%;
+}
+
+.ingInput p {
+	padding: 0.2em 0;
+	width: 100%;
+}
+
+.ingInput input {
+	width: 60%;
+}
+
+.ingInput button {
+	width: 30%;
+	padding: 0.2em;
+}
+
+.search .search-title {
+	font-size: 2.5em;
+	font-weight: bold;
+}
+
+.theme-selector {
+	display: flex;
+	justify-content: flex-end;
+	align-items: center;
+	max-width: 1200px;
+	margin: 20px auto;
+	padding: 0 1em;
+}
+.theme-buttons div {
+	display: inline-block;
+	width: 20px;
+	height: 20px;
+	cursor: pointer;
+	margin-left: 15px;
+	border-radius: 50%;
+}
+
+.mode-toggle {
+	margin-right: auto;
+}
+.mode-toggle img {
+	width: 24px;
+	height: 24px;
+	cursor: pointer;
+}
+
+/* dark mode */
+.dark {
+	color: #e4e4e4;
+	background: #333;
+}
+
+.dark nav {
+	color: #e4e4e4 !important;
+	background: #666 !important;
+	box-shadow: 0 8px 6px -6px #e4e4e4 !important;
+}
+
+.dark .card,
+.dark .card .card-subtitle li,
+.dark .card .blockquote-footer {
+	color: #e4e4e4 !important;
+	background: #555 !important;
+}
+
+.dark .recipe .card-title,
+.dark .create .card-title,
+.dark .home .card-title {
+	color: #e4e4e4 !important;
+	background: #666 !important;
+	box-shadow: 0 8px 6px -6px #e4e4e4 !important;
+}
+
+.dark .search .search-title {
+	color: #e4e4e4 !important;
+
+	box-shadow: 0 8px 6px -6px #e4e4e4 !important;
+}
+
+.dark .card button {
+	color: #e4e4e4 !important;
+	background: #666 !important;
+	box-shadow: 0 8px 6px -6px #e4e4e4 !important;
+}
