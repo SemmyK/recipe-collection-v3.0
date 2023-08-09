@@ -2,7 +2,7 @@ import Card from 'react-bootstrap/Card'
 import { useTheme } from '../hooks/useTheme'
 import ButtonBox from './ButtonBox'
 
-function RecipeCard({ recipe }) {
+function RecipeCard({ recipe, userData }) {
 	const { color } = useTheme()
 
 	return (
@@ -34,10 +34,10 @@ function RecipeCard({ recipe }) {
 				<p className='blockquote-footer'>{recipe.cookingTime} to make.</p>
 			</Card.Body>
 			<ButtonBox
-				link={`/recipes/${recipe.id}`}
 				color={color}
 				recipe={recipe}
 				text='Cook this'
+				userData={userData}
 			/>
 		</Card>
 	)

@@ -28,7 +28,7 @@ p {
 }
 
 a {
-	text-decoration: none;
+	text-decoration: none !important;
 	padding: 0.5em;
 	font-weight: 400;
 }
@@ -87,17 +87,97 @@ textarea {
 
 .navmenu a {
 	color: #fff;
+	text-decoration: none;
 }
 
 .navmenu a.active {
-	color: #333;
-	background-color: #fff;
+	color: #333 !important;
+	background-color: #fff !important;
 	font-weight: bold;
+	border-radius: 0.375rem;
+}
+
+.searchComponent {
+	margin-left: auto;
 }
 
 .navmenu button {
 	color: #fff;
 	border-color: #fff;
+}
+
+.avatar {
+	box-sizing: border-box !important;
+	padding: 0;
+	margin: 0;
+	display: flex;
+	justify-content: center !important;
+	align-items: center !important;
+	text-align: center !important;
+	border-radius: 50%;
+}
+.navmenu .avatar {
+	padding: 0;
+}
+
+.letter {
+	border-radius: 50%;
+	text-align: center;
+}
+
+nav .letter {
+	font-size: 1.5em;
+}
+
+.profile .letter {
+	font-size: 4em;
+}
+
+.navbar-toggler {
+	margin-right: 1em;
+}
+
+.collapsed {
+	border-color: #e4e4e4 !important;
+}
+
+.collapsed:hover {
+	background-color: #fff !important;
+}
+
+.navbar-toggler:focus {
+	box-shadow: none;
+}
+
+.offcanvas {
+	width: 15em !important;
+}
+
+.offcanvas a {
+	text-decoration: none;
+	color: #e4e4e4 !important;
+}
+
+.offcanvas button {
+	margin-top: 0.5em;
+	border-color: #e4e4e4;
+	color: #e4e4e4;
+}
+
+.offcanvas-header .btn-close {
+	background-color: inherit !important;
+	color: #fff !important;
+}
+
+.offcanvas-header .btn-close:hover {
+	background-color: inherit !important;
+	border: none !important;
+}
+
+.offcanvas-header .btn-close:focus {
+	background-color: inherit !important;
+	border: none !important;
+	color: #fff !important;
 }
 
 .home {
@@ -186,14 +266,13 @@ textarea {
 }
 
 .btn-div {
-	width: 80%;
 	margin: 1em auto;
-	padding: 0;
+	padding: 0 1em;
 }
 
 .btn-div .row {
 	width: 100%;
-	justify-content: center;
+	justify-content: space-evenly;
 	align-items: center;
 	margin: 0;
 	padding: 0;
@@ -201,7 +280,7 @@ textarea {
 
 .btn-div button {
 	width: 100%;
-	margin: 0;
+	margin: 0.25em 1em;
 	color: #fff;
 }
 
@@ -224,28 +303,24 @@ textarea {
 	width: fit-content;
 }
 
-.ingInput {
-	display: flex;
-	flex-wrap: wrap;
-	justify-content: space-between;
+.ingInput .row {
+	justify-content: center;
+	align-items: center;
 }
 
-.ingInput label {
+select {
 	width: 100%;
+	padding: 0.25em 0.5em !important;
+	border-style: solid !important;
+	border-width: 1px !important;
+	border-radius: 4px !important;
 }
 
-.ingInput p {
-	padding: 0.2em 0;
-	width: 100%;
-}
-
-.ingInput input {
-	width: 60%;
-}
-
-.ingInput button {
-	width: 30%;
-	padding: 0.2em;
+select:focus {
+	border-width: 2px !important;
+	border-color: #333 !important;
+	box-shadow: none !important;
+	outline: none !important;
 }
 
 .search .search-title {
@@ -279,6 +354,11 @@ textarea {
 	cursor: pointer;
 }
 
+.recipe-created {
+	box-sizing: border-box;
+	box-shadow: 8px 0 6px -6px #333;
+}
+
 /* dark mode */
 .dark {
 	color: #e4e4e4;
@@ -291,6 +371,13 @@ textarea {
 	box-shadow: 0 8px 6px -6px #e4e4e4 !important;
 }
 
+.dark .profile {
+	color: #e4e4e4 !important;
+}
+
+.dark .recipe-created {
+	box-shadow: 8px 0 6px -6px #e4e4e4 !important;
+}
 .dark .card,
 .dark .card .card-subtitle li,
 .dark .card .blockquote-footer {
@@ -300,20 +387,121 @@ textarea {
 
 .dark .recipe .card-title,
 .dark .create .card-title,
-.dark .home .card-title {
+.dark .home .card-title,
+.dark .signup-in .card-title {
 	color: #e4e4e4 !important;
 	background: #666 !important;
-	box-shadow: 0 8px 6px -6px #e4e4e4 !important;
+	box-shadow: 0 8px 6px -6px #333 !important;
 }
 
 .dark .search .search-title {
 	color: #e4e4e4 !important;
-
 	box-shadow: 0 8px 6px -6px #e4e4e4 !important;
 }
 
+.dark .navbar-toggler {
+	border-color: #e4e4e4 !important;
+}
+
+.dark nav input:focus {
+	box-shadow: 0 8px 6px -6px #e4e4e4 !important;
+	border: none !important;
+}
+.dark nav a {
+	background: #666 !important;
+}
+.dark .navmenu .avatar {
+	box-shadow: 0px 0px 10px 5px #e4e4e4 !important;
+	background: #666 !important;
+}
+.dark nav button,
 .dark .card button {
 	color: #e4e4e4 !important;
 	background: #666 !important;
 	box-shadow: 0 8px 6px -6px #e4e4e4 !important;
+}
+
+.dark .offcanvas {
+	width: 15em !important;
+	color: #e4e4e4 !important;
+	background-color: #666 !important;
+}
+
+.dark .offcanvas a {
+	text-decoration: none;
+	color: #e4e4e4 !important;
+	background-color: #666 !important;
+	box-shadow: 0 8px 6px -6px #e4e4e4 !important;
+}
+
+/* sign up/sign in page */
+.signup-in .row {
+	justify-content: center;
+	align-items: center;
+}
+
+/* social buttons */
+
+.social {
+	justify-content: center;
+	align-items: center;
+	width: 100%;
+	margin: 0;
+}
+
+.social div {
+	display: inline-block;
+	margin: 0.5em 0;
+}
+
+.social .btn-google {
+	box-sizing: border-box;
+	width: 100% !important;
+	color: #fff;
+	background-color: #c23321;
+	border-color: rgba(0, 0, 0, 0.2);
+}
+
+.social .btn-facebook {
+	box-sizing: border-box;
+	width: 100% !important;
+	color: #fff;
+	background-color: #2d4373;
+	border-color: rgba(0, 0, 0, 0.2);
+}
+.social button {
+	display: flex;
+	justify-content: space-around;
+	align-items: center !important;
+	box-sizing: border-box;
+	padding: 0.5em 1em !important;
+}
+
+.btn-social > :first-child {
+	position: absolute;
+	left: 0.2em;
+	top: 0.15em;
+}
+
+.btn-google:hover {
+	color: #c23321;
+	border: 2px solid #c23321 !important;
+	background-color: #fff !important;
+}
+
+.btn-facebook:hover {
+	color: #2d4373;
+	border: 2px solid #2d4373 !important;
+	background-color: #fff !important;
+}
+
+.social i {
+	display: block;
+	line-height: 1.5em;
+}
+
+.btn-social .social-text {
+	display: block;
+	padding: 0.1em 0.3em;
+	margin-left: 1em;
 }

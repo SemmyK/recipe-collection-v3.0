@@ -1,57 +1,36 @@
+import { useEffect } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
-import RecipeList from '../components/RecipeList'
-import { useEffect, useState, useCallback } from 'react'
-import { toast } from 'react-toastify'
+//hooks
 import { useTheme } from '../hooks/useTheme'
-import useFirebase from '../hooks/useFirebase'
+//bootstrap
+import { Container } from 'react-bootstrap'
+//components
+import RecipeList from '../components/RecipeList'
+import { ScaleLoader } from 'react-spinners'
 
-function SearchResults() {
+function SearchResults({ searchedData: searchResults, loading, error }) {
 	const navigate = useNavigate()
-	const location = useLocation()
 	const { color } = useTheme()
-	const [searchResults, setSearchResults] = useState(null)
+	const location = useLocation()
 	const queryParams = new URLSearchParams(location.search)
 	const searchTerm = queryParams.get('q')
-	const { searchWholeCollection, loading, error } = useFirebase()
-
-	const performSearch = useCallback(
-		async searchTerm => {
-			try {
-				const results = await searchWholeCollection('recipes', searchTerm)
-				if (results.length === 0) {
-					setSearchResults([])
-					// Redirect to '/'
-					setTimeout(() => {
-						navigate('/')
-					}, 2000)
-
-					return
-				} else {
-					setSearchResults(results)
-
-					return
-				}
-			} catch (error) {
-				console.error('Error searching collection:', error)
-				toast.error('Error getting searched recipes')
-				navigate('/')
-				// Handle the error, e.g., show an error message
-			}
-		},
-		[navigate, searchWholeCollection]
-	)
 
 	useEffect(() => {
-		if (searchTerm) {
-			performSearch(searchTerm)
-		} else {
-			setSearchResults(null)
+		if (searchResults.length === 0) {
+			// Redirect to '/'
+			setTimeout(() => {
+				navigate('/')
+			}, 2000)
 		}
-	}, [searchTerm, performSearch])
+	}, [searchResults])
 
 	return (
-		<div className='home search'>
-			{loading && <div className='loading'>Loading...</div>}
+		<Container className='home search'>
+			{loading && (
+				<div className='d-flex justify-content-center align-items-center  h-100'>
+					<ScaleLoader color={color} width='10px' height='100px' />
+				</div>
+			)}
 			{error && <div className='error'>{error}</div>}
 
 			{searchResults && (
@@ -71,13 +50,16 @@ function SearchResults() {
 							>
 								Recipes including word "{searchTerm}"
 							</p>
-
-							<RecipeList recipes={searchResults} />
+							{searchResults.length !== 0 ? (
+								<RecipeList recipes={searchResults} />
+							) : (
+								<h2>No recipes to show</h2>
+							)}
 						</>
 					)}
 				</>
 			)}
-		</div>
+		</Container>
 	)
 }
 export default SearchResults

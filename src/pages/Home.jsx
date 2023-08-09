@@ -1,18 +1,26 @@
+//hooks
+
+import { useTheme } from '../hooks/useTheme'
+//components
+import { ScaleLoader } from 'react-spinners'
 import RecipeList from '../components/RecipeList'
-import useFirestoreCollection from '../hooks/useFirestoreCollection'
+import { toast } from 'react-toastify'
 
-function Home() {
-	const { loading, error, items: recipes } = useFirestoreCollection('recipes')
-
+function Home({ recipes, userData, loading, error }) {
+	const { color } = useTheme()
+	if (loading) {
+		return (
+			<div className='d-flex justify-content-center align-items-center  h-100'>
+				<ScaleLoader color={color} width='10px' height='100px' />
+			</div>
+		)
+	}
+	if (error) {
+		toast.error(error)
+	}
 	return (
 		<div className='home'>
-			{loading ? (
-				<div className='loading'>Loading...</div>
-			) : error ? (
-				<div className='error'>{error}</div>
-			) : (
-				recipes && recipes !== [] && <RecipeList recipes={recipes} />
-			)}
+			{recipes && <RecipeList recipes={recipes} userData={userData} />}
 		</div>
 	)
 }

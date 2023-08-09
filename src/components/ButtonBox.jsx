@@ -1,36 +1,68 @@
 import { Button, Row, Col } from 'react-bootstrap'
 import { Link, useNavigate } from 'react-router-dom'
 import trash from '../assets/trash3.svg'
-import useFirebase from '../hooks/useFirebase'
-import { toast } from 'react-toastify'
+import edit from '../assets/edit.svg'
 
-function ButtonBox({ color, text, link, recipe, del, btn, width }) {
+import { toast } from 'react-toastify'
+import useFirebaseFirestore from '../hooks/useFirebaseFirestore'
+
+function ButtonBox({ color, text, recipe, width, userData }) {
 	const navigate = useNavigate()
-	const { deleteItem } = useFirebase()
+	const { deleteDocument, getDocById } = useFirebaseFirestore('recipes')
+	const handleClick = async e => {
+		if (e.target.innerText === 'Cook this') {
+			await getDocById(recipe.id)
+			navigate(`/recipes/${recipe.id}`)
+		} else {
+			navigate('/')
+		}
+	}
 	return (
-		<div className='btn-div' style={{ width: `${width ? width : ' 80%'}` }}>
+		<div className='btn-div' style={{ width: `${width ? width : '100%'}` }}>
 			<Row>
-				<Col xs={8} lg={btn ? btn : 8}>
-					<Link style={{ display: 'block' }} to={link}>
-						<Button variant='btn-outline-success' style={{ background: color }}>
+				<Row>
+					<Col xs={10}>
+						<Button
+							variant='btn-outline-success'
+							style={{ background: color, display: 'block' }}
+							onClick={handleClick}
+						>
 							{text}
 						</Button>
-					</Link>
-				</Col>
-				<Col xs={4} lg={del ? del : 4}>
-					<Button
-						variant='btn-outline-success'
-						style={{ background: color }}
-						className='trash'
-						onClick={() => {
-							deleteItem('recipes', recipe.id)
-							toast.info('Successfully deleted recipe.')
-							navigate('/')
-						}}
-					>
-						<img src={trash} alt='delete icon' />
-					</Button>
-				</Col>
+					</Col>
+				</Row>
+
+				{userData && recipe.userRef === userData.userUID && (
+					<Col xs={5}>
+						<Button
+							variant='btn-outline-success'
+							style={{ background: color }}
+							className='trash'
+							onClick={() => {
+								deleteDocument(recipe.id)
+								toast.info('Successfully deleted recipe.')
+								navigate('/')
+							}}
+						>
+							<img src={trash} alt='delete icon' />
+						</Button>
+					</Col>
+				)}
+				{userData && recipe.userRef === userData.userUID && (
+					<Col xs={5}>
+						<Button
+							variant='btn-outline-success'
+							style={{ background: color }}
+							className='trash'
+							onClick={() => {
+								getDocById(recipe.id)
+								navigate(`/update-recipe/${recipe.id}`)
+							}}
+						>
+							<img src={edit} alt='delete icon' />
+						</Button>
+					</Col>
+				)}
 			</Row>
 		</div>
 	)

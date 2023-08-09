@@ -1,17 +1,19 @@
-import Container from 'react-bootstrap/Container'
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 import RecipeCard from './RecipeCard'
 import { toast } from 'react-toastify'
+import { useEffect } from 'react'
 
-export default function RecipeList({ recipes }) {
-	if (recipes === []) {
-		toast.info('No recipes to show')
-	}
+export default function RecipeList({ recipes, userData }) {
+	useEffect(() => {
+		if (recipes === []) {
+			toast.info('No recipes to show')
+		}
+	}, [])
 
 	return (
-		<Container style={{ gridAutoRows: '1fr', gap: '2em' }}>
-			<Row>
+		<article className='mx-auto' style={{ padding: '1em ', width: '95%' }}>
+			<Row className='mx-auto w-100'>
 				{recipes &&
 					recipes !== [] &&
 					recipes.map(recipe => (
@@ -20,12 +22,12 @@ export default function RecipeList({ recipes }) {
 							xs={12}
 							md={6}
 							lg={4}
-							style={{ padding: '1em' }}
+							style={{ padding: '1em 0' }}
 						>
-							<RecipeCard recipe={recipe} />
+							<RecipeCard recipe={recipe} userData={userData} />
 						</Col>
 					))}
 			</Row>
-		</Container>
+		</article>
 	)
 }

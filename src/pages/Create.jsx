@@ -1,18 +1,22 @@
 import { useRef, useState } from 'react'
-import { Button, Card } from 'react-bootstrap'
-import Form from 'react-bootstrap/Form'
-import { toast } from 'react-toastify'
 import { useNavigate } from 'react-router-dom'
+//hooks
 import { useTheme } from '../hooks/useTheme'
-import useFirebase from '../hooks/useFirebase'
+import useFirebaseFirestore from '../hooks/useFirebaseFirestore'
+//bootstrap components
+import { Button, Card, Row, Col } from 'react-bootstrap'
+import Form from 'react-bootstrap/Form'
+//components
+import { toast } from 'react-toastify'
 
-function Create() {
+function Create({ user, recipe }) {
 	const { color } = useTheme()
+	const { addDocument } = useFirebaseFirestore('recipes')
 	const navigate = useNavigate()
 	const ingredientInput = useRef(null)
+	const [type, setType] = useState('meal')
 	const [ingredient, setIngredient] = useState('')
 	const [ingredients, setIngredients] = useState([])
-	const { createItem } = useFirebase()
 	const [newRecipe, setNewRecipe] = useState({
 		title: '',
 		cookingTime: '',
@@ -37,25 +41,34 @@ function Create() {
 		ingredientInput.current.focus()
 	}
 
-	const handleSubmit = e => {
+	const handleSubmit = async e => {
 		e.preventDefault()
+		try {
+			if (user && newRecipe && ingredients.length !== 0) {
+				await addDocument({
+					title: newRecipe.title,
+					type: type,
+					ingredients: ingredients,
+					cookingTime: newRecipe.cookingTime + ' minutes',
+					method: newRecipe.method + ' Enjoy your meal!',
+					userRef: user.userUID,
+				}).then(() => {
+					setNewRecipe({
+						title: '',
+						cookingTime: '',
+						method: '',
+					})
+					setIngredients([])
 
-		newRecipe &&
-			ingredients !== [] &&
-			createItem('recipes', {
-				title: newRecipe.title,
-				ingredients: ingredients,
-				cookingTime: newRecipe.cookingTime + ' minutes',
-				method: newRecipe.method + ' Enjoy your meal!',
-			})
-		setNewRecipe({
-			title: '',
-			cookingTime: '',
-			method: '',
-		})
-		setIngredients([])
-		toast.success('Recipe added successfully!')
-		setTimeout(() => navigate('/', 100))
+					toast.success('Successfully added recipe.')
+				})
+			}
+		} catch (error) {
+			console.log(error)
+			toast.error('Something went wrong. Recipe not added.')
+		}
+
+		recipe && setTimeout(() => navigate(`/recipes/${recipe.id}`), 150)
 	}
 
 	return (
@@ -86,47 +99,97 @@ function Create() {
 									/>
 								</Form.Group>
 
+								<Row>
+									<Col>
+										<Form.Group
+											className='mb-3'
+											controlId='exampleForm.ControlInput1'
+										>
+											<Row>
+												<Col xs={12}>
+													<Form.Label>Type of recipe:</Form.Label>
+												</Col>
+												<Col>
+													{' '}
+													<select
+														className='form-select form-select-lg '
+														style={{
+															borderColor: color + '!important',
+														}}
+														id='type'
+														onChange={e => setType(e.target.value)}
+													>
+														<option value='meal'>Meal</option>
+														<option value='soup'>Soup</option>
+														<option value='salad'>Salad</option>
+														<option value='snack'>Snack</option>
+														<option value='smoothie'>Smoothie</option>
+													</select>
+												</Col>
+											</Row>
+										</Form.Group>
+									</Col>
+									<Col>
+										<Form.Group
+											className='mb-3'
+											controlId='exampleForm.ControlInput1'
+										>
+											<Form.Label>Cooking Time (in minutes):</Form.Label>
+											<input
+												style={{ borderColor: color }}
+												required
+												type='number'
+												value={newRecipe.cookingTime}
+												onChange={handleChange}
+												id='cookingTime'
+											/>
+										</Form.Group>
+									</Col>
+								</Row>
+
 								<Form.Group
 									className='mb-3 ingInput'
 									controlId='exampleForm.ControlInput1'
 								>
-									<Form.Label>Ingredients (add one by one):</Form.Label>
-									<input
-										style={{ borderColor: color }}
-										ref={ingredientInput}
-										type='string'
-										value={ingredient}
-										onChange={e => setIngredient(e.target.value)}
-									/>
-									<Button
-										onClick={handleAdd}
-										style={{ background: color, border: 'none' }}
-									>
-										Add
-									</Button>
-
-									<p>
-										{' '}
-										Current ingredients:
-										{ingredients !== [] &&
-											ingredients.map(ing => <span key={ing}> {ing} |</span>)}
-									</p>
+									<Row>
+										<Form.Label>Ingredients (add one by one):</Form.Label>
+										<Col xs={7} sm={8}>
+											<input
+												style={{ borderColor: color }}
+												ref={ingredientInput}
+												type='string'
+												value={ingredient}
+												onChange={e => setIngredient(e.target.value)}
+											/>
+										</Col>
+										<Col xs={5} sm={4}>
+											<Button
+												onClick={handleAdd}
+												style={{
+													background: color,
+													border: 'none',
+													width: '100%',
+												}}
+											>
+												Add
+											</Button>
+										</Col>
+									</Row>
+									<Row>
+										<Col>
+											{' '}
+											<p>
+												{' '}
+												Current ingredients:
+												{ingredients !== [] &&
+													ingredients.map(ing => (
+														<span key={ing}> {ing} |</span>
+													))}
+											</p>
+										</Col>
+									</Row>
 								</Form.Group>
 
-								<Form.Group
-									className='mb-3'
-									controlId='exampleForm.ControlInput1'
-								>
-									<Form.Label>Cooking Time (in minutes):</Form.Label>
-									<input
-										style={{ borderColor: color }}
-										required
-										type='number'
-										value={newRecipe.cookingTime}
-										onChange={handleChange}
-										id='cookingTime'
-									/>
-								</Form.Group>
 								<Form.Group
 									className='mb-3'
 									controlId='exampleForm.ControlTextarea1'
