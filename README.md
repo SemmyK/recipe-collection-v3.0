@@ -9,7 +9,7 @@ React app with React-bootstrap components and firebase.
 You can read, add, delete and search for recipes.
 Choose dark/light mode or any of different themes that are offered under navigation bar.
 
-`**Replaced json-server with firebase**`
+`**Replaced json-server with firebase and added auth and data context**`
 
 ### Version 2
 
