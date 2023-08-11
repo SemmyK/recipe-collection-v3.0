@@ -1,5 +1,5 @@
 import { Button, Row, Col } from 'react-bootstrap'
-import { Link, useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import trash from '../assets/trash3.svg'
 import edit from '../assets/edit.svg'
 

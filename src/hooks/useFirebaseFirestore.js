@@ -150,8 +150,8 @@ const useFirebaseFirestore = collectionName => {
 
 			const querySnapshot = await getDocs(q)
 			const results = []
-			const documents =
-				querySnapshot &&
+
+			querySnapshot &&
 				querySnapshot.forEach(doc => {
 					results.push({
 						id: doc.id,

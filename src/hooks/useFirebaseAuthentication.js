@@ -1,4 +1,3 @@
-import { useState } from 'react'
 //firebase auth & firestore
 import app from '../firebase/firebase'
 import {
@@ -23,7 +22,6 @@ function useFirebaseAuthentication() {
 	const auth = getAuth(app)
 	const db = getFirestore(app)
 	const { authDispatch } = useAuthContext()
-	const [error, setError] = useState(null)
 
 	//email & password authentication
 	const createUser = async (email, password, userData) => {

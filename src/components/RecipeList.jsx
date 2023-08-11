@@ -9,7 +9,7 @@ export default function RecipeList({ recipes, userData }) {
 		if (recipes === []) {
 			toast.info('No recipes to show')
 		}
-	}, [])
+	}, [recipes])
 
 	return (
 		<article className='mx-auto' style={{ padding: '1em ', width: '95%' }}>

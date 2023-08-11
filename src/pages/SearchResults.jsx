@@ -22,7 +22,7 @@ function SearchResults({ searchedData: searchResults, loading, error }) {
 				navigate('/')
 			}, 2000)
 		}
-	}, [searchResults])
+	}, [searchResults, navigate])
 
 	return (
 		<Container className='home search'>

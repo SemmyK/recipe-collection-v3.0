@@ -13,6 +13,7 @@ const RenderPropComponent = ({ render }) => {
 		if (authContext.authUser) {
 			getUsersPosts(authContext.authUser.uid)
 		}
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [authContext.authUser])
 
 	// Use useMemo to memoize the combined context data
