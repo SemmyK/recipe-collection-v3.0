@@ -52,23 +52,20 @@ function Create({ user, recipe }) {
 					cookingTime: newRecipe.cookingTime + ' minutes',
 					method: newRecipe.method + ' Enjoy your meal!',
 					userRef: user.userUID,
-				}).then(() => {
-					setNewRecipe({
-						title: '',
-						cookingTime: '',
-						method: '',
-					})
-					setIngredients([])
-
-					toast.success('Successfully added recipe.')
 				})
+				toast.success('Successfully added recipe.')
 			}
 		} catch (error) {
 			console.log(error)
 			toast.error('Something went wrong. Recipe not added.')
 		}
-
-		recipe && setTimeout(() => navigate(`/recipes/${recipe.id}`), 150)
+		setNewRecipe({
+			title: '',
+			cookingTime: '',
+			method: '',
+		})
+		setIngredients([])
+		navigate('/')
 	}
 
 	return (
